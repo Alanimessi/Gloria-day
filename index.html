@@ -7,144 +7,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: #000;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        .container {
-            position: relative;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Auto-Scrolling Slider with Zoom Effect */
-        .slider {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .slides {
-            display: flex;
-            width: 400%; /* Space for 4 slides */
-            height: 100%;
-            animation: slideShow 20s infinite;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            /* Subtle zoom effect */
-            animation: kenBurns 10s infinite alternate;
-        }
-
+        body { background: #000; font-family: 'Poppins', sans-serif; color: white; overflow: hidden; height: 100vh; }
+        .container { position: relative; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; }
+        
+        /* Slider */
+        .slider { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
+        .slides { display: flex; width: 400%; height: 100%; animation: slideShow 20s infinite; }
+        .slide { width: 100%; height: 100%; background-size: cover; background-position: center; animation: kenBurns 10s infinite alternate; }
+        
         @keyframes slideShow {
             0%, 20% { transform: translateX(0); }
-            25%, 45% { transform: translateX(-100vw); }
-            50%, 70% { transform: translateX(-200vw); }
-            75%, 95% { transform: translateX(-300vw); }
+            25%, 45% { transform: translateX(-25%); }
+            50%, 70% { transform: translateX(-50%); }
+            75%, 95% { transform: translateX(-75%); }
             100% { transform: translateX(0); }
         }
-
-        @keyframes kenBurns {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
-            z-index: 2;
-        }
-
-        /* Glassmorphism Content Box */
-        .content {
-            position: relative;
-            z-index: 10;
-            padding: 40px 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 85%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        h1 { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 3.5rem; 
-            margin-bottom: 10px;
-            color: #ff4d4d;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        p { font-size: 1rem; margin-bottom: 30px; font-weight: 300; line-height: 1.6; }
-
-        .btn {
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #ff4d4d, #ff8080);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 77, 77, 0.6); }
+        @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); z-index: 2; }
+        
+        /* Glassmorphism Content */
+        .content { position: relative; z-index: 10; padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); max-width: 85%; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin-bottom: 10px; color: #ff4d4d; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        p { font-size: 1rem; margin-bottom: 30px; font-weight: 300; }
+        
+        .btn { padding: 15px 40px; border: none; border-radius: 50px; background: linear-gradient(45deg, #ff4d4d, #ff8080); color: white; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
         .btn:active { transform: scale(0.95); }
-
+        
         .hidden { display: none; margin-top: 20px; animation: fadeIn 1.5s ease-in-out forwards; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .reason { opacity: 0; margin-bottom: 10px; list-style: none; }
     </style>
-    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
     <audio id="birthdaySong" loop>
-        <source src="your-song-file.mp3" type="audio/mpeg">
+        <source src="Ckay-Love-Nwantinti-file-2-(JustNaija.com).mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
         <div class="slider">
             <div class="slides">
-                <div class="slide" style="background-image: url('photo1.jpg');"></div>
-                <div class="slide" style="background-image: url('photo2.jpg');"></div>
-                <div class="slide" style="background-image: url('photo3.jpg');"></div>
-                <div class="slide" style="background-image: url('photo4.jpg');"></div>
+                <div class="slide" style="background-image: url('Gloria.jpg');"></div>
+                <div class="slide" style="background-image: url('Gloria1.jpg');"></div>
+                <div class="slide" style="background-image: url('Gloria2.jpg');"></div>
+                <div class="slide" style="background-image: url('Gloria3.jpg');"></div>
             </div>
             <div class="overlay"></div>
         </div>
 
         <div class="content">
             <h1>Happy Birthday!</h1>
-            <p>To the one who makes every day feel like a beautiful dream. You deserve the world and more.</p>
-            
+            <p>To the one who makes every day feel like a beautiful dream.</p>
             <button id="surpriseBtn" class="btn">Tap for a Surprise ✨</button>
             
             <div id="extraMessage" class="hidden">
-                <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff8080;">
-                    I am so lucky to have you. <br> Forever to go! ❤️
-                </p>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff8080;">I am so lucky to have you.</p>
+                <ul id="reasonsList" style="margin-top: 15px; font-size: 1.2rem;">
+                    <li class="reason">You have the kindest heart. ❤️</li>
+                    <li class="reason">Your smile makes my day. ✨</li>
+                    <li class="reason">You are my best friend. 🫶</li>
+                    <li class="reason">I love you more than words can say. 🌍</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -153,31 +78,28 @@
     const btn = document.getElementById('surpriseBtn');
     const audio = document.getElementById('birthdaySong');
     const extraMessage = document.getElementById('extraMessage');
+    const reasons = document.querySelectorAll('.reason');
 
     btn.addEventListener('click', () => {
-        // Start Music
-        audio.play().catch(e => console.log("Audio play failed: ", e));
-
-        // Celebration Confetti
+        audio.play().catch(e => console.log("Audio play blocked: ", e));
+        
+        // Confetti
         var duration = 5 * 1000;
-        var animationEnd = Date.now() + duration;
-        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
-
-        function randomInRange(min, max) {
-          return Math.random() * (max - min) + min;
-        }
-
+        var end = Date.now() + duration;
         var interval = setInterval(function() {
-          var timeLeft = animationEnd - Date.now();
-          if (timeLeft <= 0) { return clearInterval(interval); }
-          var particleCount = 50 * (timeLeft / duration);
-          confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-          confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            if (Date.now() > end) return clearInterval(interval);
+            confetti({ particleCount: 50, spread: 360, origin: { x: Math.random(), y: Math.random() - 0.2 } });
         }, 250);
 
-        // UI Changes
         extraMessage.classList.remove('hidden');
         btn.style.display = 'none';
+
+        reasons.forEach((reason, index) => {
+            setTimeout(() => {
+                reason.style.transition = 'opacity 1s ease-in';
+                reason.style.opacity = '1';
+            }, index * 1500);
+        });
     });
 </script>
 </body>
