@@ -8,9 +8,10 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #000; font-family: 'Poppins', sans-serif; color: white; overflow: hidden; height: 100vh; }
+        
         .container { position: relative; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; }
         
-        /* Slider */
+        /* Background Slider */
         .slider { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
         .slides { display: flex; width: 400%; height: 100%; animation: slideShow 20s infinite; }
         .slide { width: 100%; height: 100%; background-size: cover; background-position: center; animation: kenBurns 10s infinite alternate; }
@@ -24,19 +25,36 @@
         }
         @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.1); } }
         
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); z-index: 2; }
+        /* Lighter Overlay to see her face clearly */
+        .overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4)); 
+            z-index: 2; 
+        }
         
-        /* Glassmorphism Content */
-        .content { position: relative; z-index: 10; padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); max-width: 85%; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin-bottom: 10px; color: #ff4d4d; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        p { font-size: 1rem; margin-bottom: 30px; font-weight: 300; }
+        /* Glassmorphism Box */
+        .content { 
+            position: relative; z-index: 10; padding: 35px 20px; text-align: center; 
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(12px); 
+            border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            max-width: 90%; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9); 
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.2rem; margin-bottom: 10px; color: #ff4d4d; text-shadow: 0 0 15px rgba(255, 77, 77, 0.6); }
+        p { font-size: 1rem; margin-bottom: 25px; font-weight: 300; color: #eee; }
         
-        .btn { padding: 15px 40px; border: none; border-radius: 50px; background: linear-gradient(45deg, #ff4d4d, #ff8080); color: white; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
-        .btn:active { transform: scale(0.95); }
+        .btn { padding: 15px 45px; border: none; border-radius: 50px; background: linear-gradient(45deg, #ff4d4d, #ff8080); color: white; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 77, 77, 0.5); }
         
-        .hidden { display: none; margin-top: 20px; animation: fadeIn 1.5s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .reason { opacity: 0; margin-bottom: 10px; list-style: none; }
+        .hidden { display: none; margin-top: 25px; animation: fadeIn 1.5s ease-in-out forwards; }
+        
+        /* Premium Reason Styling */
+        .reason { 
+            opacity: 0; margin-bottom: 18px; list-style: none; font-weight: 600; font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.8), 0 0 20px rgba(255, 77, 77, 0.4); 
+            color: #fff;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
@@ -63,12 +81,13 @@
             <button id="surpriseBtn" class="btn">Tap for a Surprise ✨</button>
             
             <div id="extraMessage" class="hidden">
-                <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff8080;">I am so lucky to have you.</p>
-                <ul id="reasonsList" style="margin-top: 15px; font-size: 1.2rem;">
-                    <li class="reason">You have the kindest heart. ❤️</li>
-                    <li class="reason">Your smile makes my day. ✨</li>
-                    <li class="reason">You are my best friend. 🫶</li>
-                    <li class="reason">I love you more than words can say. 🌍</li>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 2rem; color: #ff8080; margin-bottom: 20px;">I am so lucky to have you.</p>
+                <ul id="reasonsList">
+                    <li class="reason">My beautiful Gloria, my heartbeat. ❤️</li>
+                    <li class="reason">Thank you for being my constant peace. ✨</li>
+                    <li class="reason">I love how you always understand me. 🫶</li>
+                    <li class="reason">You make my world so much brighter. 🌍</li>
+                    <li class="reason">I'm so lucky to celebrate you today! 🥂</li>
                 </ul>
             </div>
         </div>
@@ -81,24 +100,27 @@
     const reasons = document.querySelectorAll('.reason');
 
     btn.addEventListener('click', () => {
-        audio.play().catch(e => console.log("Audio play blocked: ", e));
+        // Start song at the 30-second mark (Adjust if needed)
+        audio.currentTime = 30; 
+        audio.play().catch(e => console.log("Playback error: ", e));
         
-        // Confetti
-        var duration = 5 * 1000;
+        // Continuous Confetti
+        var duration = 6 * 1000;
         var end = Date.now() + duration;
         var interval = setInterval(function() {
             if (Date.now() > end) return clearInterval(interval);
-            confetti({ particleCount: 50, spread: 360, origin: { x: Math.random(), y: Math.random() - 0.2 } });
-        }, 250);
+            confetti({ particleCount: 40, spread: 100, origin: { x: Math.random(), y: Math.random() - 0.2 } });
+        }, 300);
 
         extraMessage.classList.remove('hidden');
         btn.style.display = 'none';
 
+        // Slower staggered reveal (3 seconds per reason)
         reasons.forEach((reason, index) => {
             setTimeout(() => {
-                reason.style.transition = 'opacity 1s ease-in';
+                reason.style.transition = 'opacity 1.5s ease-in-out';
                 reason.style.opacity = '1';
-            }, index * 1500);
+            }, index * 3000); 
         });
     });
 </script>
